@@ -1,0 +1,300 @@
+<div class="dashboard-shell">
+
+  <app-sidebar></app-sidebar>
+
+  <main class="dashboard-main">
+
+    <header class="topbar">
+
+      <div class="topbar-brand">
+
+<img src="../../../assets/logo/avatar-alternativo-azul.png" alt="logo" class="logo" />        <div>
+          <span>ALVO CRIATIVO</span>
+          <h1>Diagnóstico Operacional</h1>
+        </div>
+
+      </div>
+
+      <div class="topbar-actions">
+
+        <button *ngIf="resultado" type="button" class="btn-pdf" (click)="gerarPDF()">
+
+          Baixar PDF
+
+        </button>
+
+        <a *ngIf="resultado" class="btn-whatsapp-top" target="_blank"
+          href="https://wa.me/5514996969106?text=Olá!%20Quero%20uma%20análise%20estratégica%20gratuita%20da%20minha%20operação.">
+
+          WhatsApp
+
+        </a>
+
+        <div class="avatar">
+          A
+        </div>
+
+      </div>
+
+    </header>
+
+    <section class="dashboard-grid">
+
+      <div class="panel form-panel">
+
+        <div class="panel-header">
+
+          <span>Diagnóstico gratuito</span>
+
+          <h2>
+            Calculadora de Perda Operacional
+          </h2>
+
+          <p>
+            Descubra quanto sua empresa pode estar perdendo por mês
+            com processos manuais.
+          </p>
+
+        </div>
+
+        <form (ngSubmit)="enviar()" #form="ngForm">
+
+          <div class="field">
+
+            <label>Segmento da empresa</label>
+
+            <select name="nicho" [(ngModel)]="dadosForm.nicho" (change)="limparDesafio()" required>
+
+              <option value="" disabled>
+                Selecione um segmento
+              </option>
+
+              <option value="clinica">
+                Clínica
+              </option>
+
+              <option value="imobiliaria">
+                Imobiliária
+              </option>
+
+              <option value="escritorio">
+                Escritório
+              </option>
+
+              <option value="ecommerce">
+                E-commerce
+              </option>
+
+              <option value="restaurante">
+                Restaurante
+              </option>
+
+            </select>
+
+          </div>
+
+          <div class="field">
+
+            <label>Nome da Empresa</label>
+
+            <input type="text" name="nome" [(ngModel)]="dadosForm.nome" placeholder="Ex: Escritório Silva" required>
+
+          </div>
+
+          <div class="field">
+
+            <label>Responsável</label>
+
+            <input type="text" name="responsavel" [(ngModel)]="dadosForm.responsavel" placeholder="Seu nome" required>
+
+          </div>
+
+          <div class="form-row">
+
+            <div class="field">
+
+              <label>Colaboradores</label>
+
+              <input type="number" name="colaboradores" [(ngModel)]="dadosForm.colaboradores" placeholder="Ex: 3"
+                required>
+
+            </div>
+
+            <div class="field">
+
+              <label>Horas por dia</label>
+
+              <input type="number" name="horas_dia" [(ngModel)]="dadosForm.horas_dia" placeholder="Ex: 4" required>
+
+            </div>
+
+          </div>
+
+          <div class="field">
+
+            <label>Custo médio por hora</label>
+
+            <input type="number" name="valor_hora" [(ngModel)]="dadosForm.valor_hora" placeholder="Ex: 25" required>
+
+          </div>
+
+          <div class="field">
+
+            <label>Principal problema hoje</label>
+
+            <select name="desafio" [(ngModel)]="dadosForm.desafio" [disabled]="!dadosForm.nicho" required>
+
+              <option value="" disabled>
+                Selecione uma opção
+              </option>
+
+              <option *ngFor="let desafio of desafiosPorNicho" [value]="desafio">
+
+                {{ desafio }}
+
+              </option>
+
+            </select>
+
+          </div>
+
+          <button type="submit" class="btn-primary" [disabled]="carregando">
+
+            {{ carregando ? 'Calculando...' : 'Calcular Diagnóstico' }}
+
+          </button>
+
+        </form>
+
+      </div>
+
+      <div class="panel result-panel" *ngIf="!resultado && !carregando">
+
+        <h3>Aguardando diagnóstico</h3>
+
+        <p>
+          Selecione o segmento e preencha os dados
+          para gerar uma leitura financeira,
+          operacional e estratégica personalizada.
+        </p>
+
+      </div>
+
+      <div class="panel loading-panel" *ngIf="carregando">
+
+        Gerando diagnóstico...
+
+      </div>
+
+      <div class="panel result-panel" *ngIf="resultado">
+
+        <span class="status-pill">
+          {{ resultado.status_qualificacao }}
+        </span>
+
+        <h3>Resultado do Diagnóstico</h3>
+
+        <div class="result-list">
+
+          <p>
+            <strong>Segmento:</strong>
+            {{ nomeNicho }}
+          </p>
+
+          <p>
+            <strong>Custo mensal:</strong>
+            {{ resultado.custo_mensal_estimado | currency:'BRL' }}
+          </p>
+
+          <p>
+            <strong>Economia mensal:</strong>
+            {{ resultado.economia_potencial_mensal | currency:'BRL' }}
+          </p>
+
+          <p>
+            <strong>Economia anual:</strong>
+            {{ resultado.economia_potencial_anual | currency:'BRL' }}
+          </p>
+
+          <p>
+            <strong>Sugestão:</strong>
+            {{ resultado.sugestao_tecnica }}
+          </p>
+
+        </div>
+
+      </div>
+
+      <div class="dashboard-wide" *ngIf="resultado">
+
+        <app-dashboard-executivo [resultado]="resultado">
+        </app-dashboard-executivo>
+
+      </div>
+
+      <div class="dashboard-half" *ngIf="resultado">
+
+        <app-roadmap-inteligente [resultado]="resultado">
+        </app-roadmap-inteligente>
+
+      </div>
+
+      <div class="dashboard-half" *ngIf="resultado">
+
+        <app-simulador-cenarios [resultado]="resultado">
+        </app-simulador-cenarios>
+
+      </div>
+
+      <div class="dashboard-wide" *ngIf="resultado">
+
+        <div class="agenda-card">
+
+          <div class="agenda-content">
+
+            <span>Próximo passo</span>
+
+            <h3>
+              Quer uma análise estratégica gratuita?
+            </h3>
+
+            <p>
+              Agende uma conversa rápida para entender
+              quais automações fazem mais sentido
+              para sua operação.
+            </p>
+
+          </div>
+
+          <div class="agenda-actions">
+
+            <a href="https://calendly.com/giovana24neves/30min" target="_blank" class="agenda-btn primary">
+
+              Agendar pelo Calendly
+
+            </a>
+
+            <a href="https://calendar.google.com/calendar/u/0/r/eventedit" target="_blank" class="agenda-btn secondary">
+
+              Google Calendar
+
+            </a>
+
+            <a href="https://wa.me/5514996969106?text=Olá!%20Quero%20uma%20análise%20estratégica%20gratuita%20da%20minha%20operação."
+              target="_blank" class="agenda-btn whatsapp">
+
+              Falar no WhatsApp
+
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>

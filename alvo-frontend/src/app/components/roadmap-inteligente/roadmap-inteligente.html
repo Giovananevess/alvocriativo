@@ -1,0 +1,27 @@
+<div class="roadmap-board">
+
+  <div class="roadmap-header">
+    <span>Roadmap Inteligente</span>
+    <h3>Plano estratégico recomendado</h3>
+  </div>
+
+  <div class="timeline">
+
+    <div
+      class="timeline-step"
+      *ngFor="let fase of fases; let i = index">
+
+      <div class="step-number">
+        {{ i + 1 }}
+      </div>
+
+      <div class="step-content">
+        <small>{{ fase.titulo }}</small>
+        <strong>{{ fase.descricao }}</strong>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

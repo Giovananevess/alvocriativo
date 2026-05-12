@@ -1,0 +1,68 @@
+<div class="scenario-board">
+
+  <div class="scenario-header">
+    <span>Simulador Estratégico</span>
+    <h3>Cenários “E se?”</h3>
+  </div>
+
+  <div class="scenario-grid">
+
+    <div class="scenario-control">
+
+      <label>
+        E se automatizar {{ automacao }}%?
+      </label>
+
+      <input
+        type="range"
+        min="0"
+        max="100"
+        [(ngModel)]="automacao"
+        (input)="calcular()">
+    </div>
+
+    <div class="scenario-control">
+
+      <label>
+        E se reduzir {{ reduzirHoras }}h por dia?
+      </label>
+
+      <input
+        type="range"
+        min="0"
+        max="8"
+        [(ngModel)]="reduzirHoras"
+        (input)="calcular()">
+    </div>
+
+    <div class="scenario-control">
+
+      <label>
+        E se contratar {{ novosColaboradores }} pessoas?
+      </label>
+
+      <input
+        type="range"
+        min="0"
+        max="10"
+        [(ngModel)]="novosColaboradores"
+        (input)="calcular()">
+    </div>
+
+  </div>
+
+  <div class="projection-card">
+
+    <small>Resultado estimado</small>
+
+    <strong>
+      {{ economiaProjetada | currency:'BRL' }}
+    </strong>
+
+    <p>
+      Economia/projeção mensal baseada nas alterações simuladas.
+    </p>
+
+  </div>
+
+</div>

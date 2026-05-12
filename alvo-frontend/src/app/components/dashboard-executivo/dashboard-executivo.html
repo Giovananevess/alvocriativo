@@ -1,0 +1,119 @@
+<div class="executive-board">
+
+  <div class="board-top">
+    <div>
+      <small>Dashboard Executivo</small>
+      <h3>Visão geral da operação</h3>
+    </div>
+
+    <div class="board-badge">
+      {{ resultado.status_qualificacao }}
+    </div>
+  </div>
+
+  <div class="kpi-grid">
+
+    <div class="kpi-card pink">
+      <span>Custo mensal atual</span>
+      <strong>{{ custoMensal | currency:'BRL' }}</strong>
+      <small>Processos manuais hoje</small>
+    </div>
+
+    <div class="kpi-card rose">
+      <span>Economia mensal</span>
+      <strong>{{ economiaMensal | currency:'BRL' }}</strong>
+      <small>Potencial recuperado</small>
+    </div>
+
+    <div class="kpi-card orange">
+      <span>Economia anual</span>
+      <strong>{{ economiaAnual | currency:'BRL' }}</strong>
+      <small>Projeção em 12 meses</small>
+    </div>
+
+  </div>
+
+  <div class="dashboard-layout">
+
+    <div class="mini-cards">
+
+      <div class="mini-card">
+        <span>Maturidade</span>
+        <strong>{{ maturidade }}</strong>
+      </div>
+
+      <div class="mini-card">
+        <span>Risco</span>
+        <strong>{{ risco }}</strong>
+      </div>
+
+      <div class="mini-card">
+        <span>Potencial</span>
+        <strong>{{ potencial }}</strong>
+      </div>
+
+      <div class="mini-card">
+        <span>5 anos</span>
+        <strong>{{ economiaCincoAnos | currency:'BRL' }}</strong>
+      </div>
+
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-header">
+        <span>Comparativo mensal</span>
+        <strong>Antes x Depois</strong>
+      </div>
+
+      <div class="bar-row">
+        <div class="bar-info">
+          <span>Hoje</span>
+          <strong>{{ custoMensal | currency:'BRL' }}</strong>
+        </div>
+        <div class="bar">
+          <div class="fill today" style="width: 100%"></div>
+        </div>
+      </div>
+
+      <div class="bar-row">
+        <div class="bar-info">
+          <span>Com automação</span>
+          <strong>{{ custoComAutomacao | currency:'BRL' }}</strong>
+        </div>
+        <div class="bar">
+          <div class="fill automation" [style.width.%]="percentualAutomatizado"></div>
+        </div>
+      </div>
+
+      <div class="bar-row">
+        <div class="bar-info">
+          <span>Economia</span>
+          <strong>{{ economiaMensal | currency:'BRL' }}</strong>
+        </div>
+        <div class="bar">
+          <div class="fill saving" [style.width.%]="percentualEconomia"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="score-card">
+      <div class="score-circle" [style.background]="scoreStyle">
+        <div class="score-inner">
+          <strong>{{ score }}%</strong>
+          <span>Eficiência</span>
+        </div>
+      </div>
+
+      <p>
+        Quanto menor a eficiência, maior o dinheiro preso em tarefas manuais.
+      </p>
+    </div>
+
+    <div class="insight-card">
+      <span>Sugestão estratégica</span>
+      <p>{{ resultado.sugestao_tecnica }}</p>
+    </div>
+
+  </div>
+
+</div>

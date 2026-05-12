@@ -1,0 +1,75 @@
+<div class="roi-section">
+
+  <div class="roi-header">
+    <span>ROI Visual</span>
+    <h3>Impacto financeiro estimado</h3>
+    <p>
+      Veja quanto a operação pode recuperar reduzindo tarefas manuais.
+    </p>
+  </div>
+
+  <div class="highlight-card">
+    <small>Economia potencial por mês</small>
+    <strong>{{ contadorEconomia | currency:'BRL' }}</strong>
+  </div>
+
+  <div class="roi-grid">
+    <div class="roi-card">
+      <small>Perda mensal atual</small>
+      <strong>{{ custoMensal | currency:'BRL' }}</strong>
+    </div>
+
+    <div class="roi-card">
+      <small>Perda anual</small>
+      <strong>{{ custoAnual | currency:'BRL' }}</strong>
+    </div>
+
+    <div class="roi-card">
+      <small>Perda em 5 anos</small>
+      <strong>{{ custoCincoAnos | currency:'BRL' }}</strong>
+    </div>
+  </div>
+
+  <div class="comparison-box">
+
+    <div class="comparison-item">
+      <div class="comparison-top">
+        <span>Hoje</span>
+        <strong>{{ custoMensal | currency:'BRL' }}/mês</strong>
+      </div>
+
+      <div class="bar">
+        <div class="bar-fill today" style="width: 100%"></div>
+      </div>
+    </div>
+
+    <div class="comparison-item">
+      <div class="comparison-top">
+        <span>Com automação</span>
+        <strong>{{ custoComAutomacao | currency:'BRL' }}/mês</strong>
+      </div>
+
+      <div class="bar">
+        <div class="bar-fill automation" [style.width.%]="percentualAutomatizado"></div>
+      </div>
+    </div>
+
+    <div class="comparison-item">
+      <div class="comparison-top">
+        <span>Economia</span>
+        <strong>{{ economiaMensal | currency:'BRL' }}/mês</strong>
+      </div>
+
+      <div class="bar">
+        <div class="bar-fill saving" [style.width.%]="percentualEconomia"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="roi-note">
+    Em 12 meses, a economia estimada pode chegar a
+    <strong>{{ economiaAnual | currency:'BRL' }}</strong>.
+  </div>
+
+</div>
