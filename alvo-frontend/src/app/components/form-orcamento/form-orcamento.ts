@@ -93,7 +93,7 @@ export class FormOrcamentoComponent {
     this.carregando = true;
     this.resultado = null;
 
-    this.http.post<any>('http://localhost:5000/api/lead', this.dadosForm)
+    this.http.post<any>('https://alvocriativo-api.onrender.com/api/lead', this.dadosForm)
       .subscribe({
         next: (res) => {
           console.log('Sucesso:', res);
